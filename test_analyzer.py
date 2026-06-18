@@ -1,17 +1,15 @@
 from transcript_analyzer import analyze_transcript
 
 transcript = """
-Transformers are neural networks.
+Transformers are powerful models.
 
-Transformers use attention mechanisms.
+Furthermore they enable parallel processing.
 
-Transformers improve sequence modeling.
+Therefore they improve efficiency.
 
-Transformers enable parallel processing.
+Moreover they can capture long-range dependencies.
 """
 
-results = analyze_transcript(
-    transcript
-)
+results = analyze_transcript(transcript)
 
 print(results)

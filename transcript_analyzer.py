@@ -1,8 +1,13 @@
 import re
 import numpy as np
+from collections import Counter
 
 
 def analyze_transcript(transcript):
+
+    # ==========================
+    # WORD ANALYSIS
+    # ==========================
 
     words = re.findall(
         r"\b\w+\b",
@@ -20,6 +25,10 @@ def analyze_transcript(transcript):
             unique_words /
             total_words
         )
+
+    # ==========================
+    # SENTENCE CONSISTENCY
+    # ==========================
 
     sentences = re.split(
         r"[.!?]+",
@@ -46,22 +55,89 @@ def analyze_transcript(transcript):
         )
 
     if len(sentence_lengths) > 1:
+
         sentence_consistency = float(
             np.std(sentence_lengths)
-            )
-       
+        )
+
     else:
+
         sentence_consistency = 0
 
+    # ==========================
+    # REPETITION SCORE
+    # ==========================
+
+    word_counts = Counter(words)
+
+    most_common_count = 0
+
+    if total_words > 0:
+
+        most_common_count = (
+            word_counts.most_common(1)[0][1]
+        )
+
+    repetition_score = (
+        most_common_count /
+        total_words
+    ) if total_words > 0 else 0
+
+    # ==========================
+    # FORMALITY SCORE
+    # ==========================
+
+    formal_words = {
+        "therefore",
+        "furthermore",
+        "moreover",
+        "consequently",
+        "hence",
+        "thus",
+        "additionally",
+        "accordingly",
+        "indeed",
+        "notwithstanding"
+    }
+
+    formal_count = sum(
+        1
+        for word in words
+        if word in formal_words
+    )
+
+    formality_score = (
+        formal_count /
+        total_words
+    ) if total_words > 0 else 0
+
+    # ==========================
+    # RETURN RESULTS
+    # ==========================
+
     return {
+
         "total_words": total_words,
+
         "unique_words": unique_words,
+
         "vocabulary_richness": round(
             vocabulary_richness,
             3
         ),
+
         "sentence_consistency": round(
             sentence_consistency,
+            3
+        ),
+
+        "repetition_score": round(
+            repetition_score,
+            3
+        ),
+
+        "formality_score": round(
+            formality_score,
             3
         )
     }
