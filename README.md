@@ -14,6 +14,14 @@ Rather than attempting to claim whether a response was AI-generated, the system 
 
 ---
 
+## Dashboard Preview
+
+![Dashboard](assets/Dashboard_1.png)
+
+## Assessment Preview
+
+![Assessment](assets/Dashboard_2.png)
+
 ## Features
 
 ### Speech Processing
